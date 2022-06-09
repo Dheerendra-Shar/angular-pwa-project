@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId:object) {
+    
+  }
 
   ngOnInit(): void {
+    if(isPlatformBrowser(this.platformId)){
+      let navMain = document.getElementById('navbarCollapse')
+      if (navMain){
+        navMain.onclick = function(){
+          if(navMain){
+            navMain.classList.remove("show");
+          }
+        }
+      }
+    }
   }
 
 }
